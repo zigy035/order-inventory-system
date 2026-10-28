@@ -1,3 +1,21 @@
 spring:
   application:
     name: inventory-service
+
+server:
+  port: 8081
+
+app:
+  kafka:
+    topics:
+      orders: orders.v1
+      orders-dlt: orders.v1.DLT
+    retry:
+      max-attempts: 4
+      initial-interval: 500ms
+      multiplier: 2.0
+      max-interval: 5s
+  initial-stock:
+    "[item-1]": 10
+    "[item-2]": 5
+    "[item-3]": 0
