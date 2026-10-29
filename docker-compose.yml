@@ -54,3 +54,43 @@ services:
         echo "Topics created:"
         /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:19092 --list
     restart: "no"
+
+  order-api:
+    build:
+      context: .
+      dockerfile: order-api/Dockerfile
+    image: order-api:local
+    container_name: order-api
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:19092
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8080/actuator/health/readiness"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+
+  inventory-service:
+    build:
+      context: .
+      dockerfile: inventory-service/Dockerfile
+    image: inventory-service:local
+    container_name: inventory-service
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:19092
+    ports:
+      - "8081:8081"
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8081/actuator/health/readiness"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
