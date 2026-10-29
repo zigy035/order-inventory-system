@@ -16,7 +16,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>order-inventory-system</name>
-    <description>Event-driven order processing: Order API and Inventory Processing Service communicating via Kafka</description>
+    <description>Event-driven order processing: Order API and Inventory Processing Service communicating via Kafka
+    </description>
 
     <modules>
         <module>order-api</module>
