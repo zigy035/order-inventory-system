@@ -35,8 +35,8 @@ public class OrderEventPublisher {
                     .get(properties.publishTimeout().toMillis(), TimeUnit.MILLISECONDS);
 
             RecordMetadata metadata = result.getRecordMetadata();
-            log.info("Published {} orderId={} eventId={} topic={} partition={} offset={}",
-                    event.eventType(), event.orderId(), event.eventId(),
+            log.info("Published OrderCreated orderId={} eventId={} topic={} partition={} offset={}",
+                    event.orderId(), event.eventId(),
                     metadata.topic(), metadata.partition(), metadata.offset());
 
         } catch (InterruptedException e) {
