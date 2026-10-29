@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 public class OrderApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OrderApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OrderApiApplication.class, args);
+    }
 }

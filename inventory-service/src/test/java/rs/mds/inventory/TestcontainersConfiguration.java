@@ -12,21 +12,21 @@ import rs.mds.inventory.config.InventoryProperties;
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
 
-	private static final int PARTITIONS = 3;
+    private static final int PARTITIONS = 3;
 
-	@Bean
-	@ServiceConnection
-	KafkaContainer kafkaContainer() {
-		return new KafkaContainer(DockerImageName.parse("apache/kafka:4.4.0"));
-	}
+    @Bean
+    @ServiceConnection
+    KafkaContainer kafkaContainer() {
+        return new KafkaContainer(DockerImageName.parse("apache/kafka:4.4.0"));
+    }
 
-	@Bean
-	NewTopic ordersTopic(InventoryProperties properties) {
-		return TopicBuilder.name(properties.kafka().topics().orders()).partitions(PARTITIONS).replicas(1).build();
-	}
+    @Bean
+    NewTopic ordersTopic(InventoryProperties properties) {
+        return TopicBuilder.name(properties.kafka().topics().orders()).partitions(PARTITIONS).replicas(1).build();
+    }
 
-	@Bean
-	NewTopic ordersDltTopic(InventoryProperties properties) {
-		return TopicBuilder.name(properties.kafka().topics().ordersDlt()).partitions(PARTITIONS).replicas(1).build();
-	}
+    @Bean
+    NewTopic ordersDltTopic(InventoryProperties properties) {
+        return TopicBuilder.name(properties.kafka().topics().ordersDlt()).partitions(PARTITIONS).replicas(1).build();
+    }
 }

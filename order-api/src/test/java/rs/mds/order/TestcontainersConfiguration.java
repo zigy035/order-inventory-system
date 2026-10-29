@@ -12,14 +12,14 @@ import rs.mds.order.config.OrderKafkaProperties;
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
 
-	@Bean
-	@ServiceConnection
-	KafkaContainer kafkaContainer() {
-		return new KafkaContainer(DockerImageName.parse("apache/kafka:4.4.0"));
-	}
+    @Bean
+    @ServiceConnection
+    KafkaContainer kafkaContainer() {
+        return new KafkaContainer(DockerImageName.parse("apache/kafka:4.4.0"));
+    }
 
-	@Bean
-	NewTopic ordersTopic(OrderKafkaProperties properties) {
-		return TopicBuilder.name(properties.topics().orders()).partitions(3).replicas(1).build();
-	}
+    @Bean
+    NewTopic ordersTopic(OrderKafkaProperties properties) {
+        return TopicBuilder.name(properties.topics().orders()).partitions(3).replicas(1).build();
+    }
 }

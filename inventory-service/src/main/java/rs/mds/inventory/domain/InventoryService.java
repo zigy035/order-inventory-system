@@ -28,15 +28,15 @@ public class InventoryService {
         Objects.requireNonNull(initialStock, "initialStock must not be null");
         this.clock = Objects.requireNonNull(clock, "clock must not be null");
 
-        Map<String, AtomicInteger> stock = new HashMap<>();
+        Map<String, AtomicInteger> initial = new HashMap<>();
         initialStock.forEach((itemId, quantity) -> {
             if (quantity == null || quantity < 0) {
                 throw new IllegalArgumentException(
                         "Initial stock for item '" + itemId + "' must be >= 0, was " + quantity);
             }
-            stock.put(itemId, new AtomicInteger(quantity));
+            initial.put(itemId, new AtomicInteger(quantity));
         });
-        this.stock = stock;
+        this.stock = initial;
     }
 
     /**
@@ -87,7 +87,9 @@ public class InventoryService {
         return Reservation.rejected(orderId, itemId, quantity, ReservationStatus.REJECTED_INSUFFICIENT_STOCK, now);
     }
 
-    /** Lock-free "decrement only if enough stock" using compare-and-set. */
+    /**
+     * Lock-free "decrement only if enough stock" using compare-and-set.
+     */
     private static boolean tryDecrement(AtomicInteger available, int quantity) {
         int current;
         do {
